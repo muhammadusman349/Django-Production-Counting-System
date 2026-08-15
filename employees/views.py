@@ -1,5 +1,4 @@
 from rest_framework import generics, permissions
-
 from .models import Department, Employee
 from .serializers import DepartmentSerializer, EmployeeSerializer
 
