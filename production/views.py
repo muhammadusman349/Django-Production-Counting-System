@@ -18,3 +18,28 @@ class ProductionBatchApiView(generics.ListCreateAPIView,generics.RetrieveUpdateD
     
     def perform_create(self, serializer):
         serializer.save(created_by=self.request.user)
+
+
+class WorkerAssignmentApiView(generics.ListCreateAPIView,generics.RetrieveUpdateDestroyAPIView):
+    permission_classes = [IsAdminOrReadOnly]
+    serializer_class = WorkerAssignmentSerializer
+    queryset = WorkerAssignment.objects.all()
+    lookup_field = "id"
+
+    def get(self, request, *args, **kwargs):
+
+        if "id" in self.kwargs:
+            return self.retrieve(request, *args, **kwargs)
+
+        return self.list(request, *args, **kwargs)
+
+    def perform_create(self, serializer):
+        serializer.save(
+            created_by=self.request.user,
+            updated_by=self.request.user
+        )
+
+    def perform_update(self, serializer):
+        serializer.save(
+            updated_by=self.request.user
+        )
