@@ -1,6 +1,7 @@
 from django.db import models
 from accounts.models import User
 from articles.models import Article, ArticleSize
+from employees.models import Employee
 
 # Create your models here.
 class ProductionPhase(models.TextChoices):
